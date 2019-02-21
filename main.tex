@@ -4,10 +4,18 @@
 \usepackage[left=3cm,top=3cm,right=2cm,bottom=2cm]{geometry}
 \usepackage{helvet}
 \usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{titlesec}
+
+\usepackage{blindtext}
 
 \input{variables.tex}
 
-\newcommand{\vazio}{}
+\newcommand{\skippage}{
+	\newpage
+	\hfill
+	\newpage
+}
 
 \newcommand{\capa}{
 	\begin{center}
@@ -32,6 +40,8 @@
 		\cidade
 
 		\ano
+
+		\skippage
 	\end{center}
 }
 
@@ -64,14 +74,60 @@
 		\cidade
 
 		\ano
+
+		\skippage
 	\end{center}
 }
 
+\newcommand{\resumo}[2]{
+	\begin{center}
+		\MakeUppercase{\textbf{#1}}
+	\end{center}
+
+	#2
+
+	\skippage
+}
+
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+\renewcommand{\contentsname}{
+	\begin{center}
+		\textbf{SUMÁRIO}
+	\end{center}
+}
+\renewcommand{\cftbeforetoctitleskip}{0em}
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+\renewcommand{\cftsubsecfont}{\bfseries}
+\renewcommand{\cftsubsubsecfont}{\itshape}
+
+\newcommand{\capitulo}[1]{
+	\newpage
+	\ifodd \value{page}
+	\else
+		\hfill
+		\newpage
+	\fi
+	\section{\MakeUppercase{#1}}
+}
+\titleformat{\subsection}{\LARGE\bfseries}{\thesubsection}{.5em}{}
+\titleformat{\subsubsection}{\Large\itshape}{\thesubsubsection}{.5em}{}
+
 \begin{document}
 	\pagenumbering{gobble}
+	\pagestyle{empty}
 	\onehalfspacing
 
 	\capa
-	\newpage
+	\pagenumbering{arabic}
 	\folhaderosto
+
+	\resumo{resumo}{\input{imperiosos/resumos/portugues}}
+	\resumo{abstract}{\input{imperiosos/resumos/ingles}}
+
+	\tableofcontents
+	\newpage
+
+	\input{content/introducao.tex}
+	\input{content/desenvolvimento.tex}
+	\input{content/conclusao.tex}
 \end{document}
