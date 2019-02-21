@@ -1,0 +1,77 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=3cm,top=3cm,right=2cm,bottom=2cm]{geometry}
+\usepackage{helvet}
+\usepackage{setspace}
+
+\input{variables.tex}
+
+\newcommand{\vazio}{}
+
+\newcommand{\capa}{
+	\begin{center}
+		\MakeUppercase{\instituicao}
+
+		\vfill
+
+		\autor
+
+		\vfill
+
+		\MakeUppercase{\textbf{\titulo}}
+
+		\textbf{\subtitulo}
+
+		\vfill
+
+		\numerovolume
+
+		\vfill
+
+		\cidade
+
+		\ano
+	\end{center}
+}
+
+\newcommand{\folhaderosto}{
+	\begin{center}
+		\autor
+
+		\vfill
+
+		\MakeUppercase{\textbf{\titulo}}
+
+		\textbf{\subtitulo}
+
+		\vspace{1em}
+
+		\numerovolume
+
+		\vspace{1em}
+
+		\hfill
+		\begin{minipage}[t]{.6\textwidth}
+			\singlespacing
+			\descricao
+
+			{\bigskip}Professor: {\professor}
+		\end{minipage}
+
+		\vfill
+
+		\cidade
+
+		\ano
+	\end{center}
+}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\onehalfspacing
+
+	\capa
+	\newpage
+	\folhaderosto
+\end{document}
