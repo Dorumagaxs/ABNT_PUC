@@ -1,17 +1,13 @@
 all: pdf
 
-pdf: 
-	pdflatex --output-directory=bin main
+build:
+	pdflatex main
+	biber main
+	pdflatex main
+	pdflatex main
 
-bbl: log
-	bibtex ./bin/main
-	pdflatex --output-directory=bin main
-
-log: bin
-	pdflatex --output-directory=bin main
-
-bin:
-	[ -d ./bin ] || mkdir ./bin
+view: build
+	chrome main.pdf
 
 clean:
-	rm ./bin/*
+	rm main.aux main.bbl main.blg main.log main.toc main.bcf main.run.xml main.pdf

@@ -1,11 +1,20 @@
 \documentclass[12pt]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[left=3cm,top=3cm,right=2cm,bottom=2cm]{geometry}
+\usepackage[left=3cm,top=3cm,right=2cm,bottom=2cm,twoside]{geometry}
 \usepackage{helvet}
 \usepackage{setspace}
 \usepackage{tocloft}
 \usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[
+	backend=biber,
+	bibstyle=referencias,
+	maxnames=3,
+	minnames=1
+]{biblatex}
+
+\addbibresource{referencias.bib}
 
 \usepackage{blindtext}
 
@@ -17,6 +26,7 @@
 	\newpage
 }
 
+% Definindo Capa
 \newcommand{\capa}{
 	\begin{center}
 		\MakeUppercase{\instituicao}
@@ -45,6 +55,7 @@
 	\end{center}
 }
 
+% Definindo Folha de Rosto
 \newcommand{\folhaderosto}{
 	\begin{center}
 		\autor
@@ -79,6 +90,7 @@
 	\end{center}
 }
 
+% Definindo Resumo
 \newcommand{\resumo}[2]{
 	\begin{center}
 		\MakeUppercase{\textbf{#1}}
@@ -89,6 +101,7 @@
 	\skippage
 }
 
+% Definindo Sumário
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
 \renewcommand{\contentsname}{
 	\begin{center}
@@ -100,6 +113,7 @@
 \renewcommand{\cftsubsecfont}{\bfseries}
 \renewcommand{\cftsubsubsecfont}{\itshape}
 
+% Definindo Capítulo
 \newcommand{\capitulo}[1]{
 	\newpage
 	\ifodd \value{page}
@@ -108,16 +122,24 @@
 		\newpage
 	\fi
 	\section{\MakeUppercase{#1}}
+	\indent
 }
 \titleformat{\subsection}{\LARGE\bfseries}{\thesubsection}{.5em}{}
 \titleformat{\subsubsection}{\Large\itshape}{\thesubsubsection}{.5em}{}
 
+% Definindo numeração
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[ORH]{\thepage}
+\fancyhead[ELH]{\thepage}
+\renewcommand{\headrule}{}
+
 \begin{document}
-	\pagenumbering{gobble}
 	\pagestyle{empty}
 	\onehalfspacing
 
 	\capa
+
 	\pagenumbering{arabic}
 	\folhaderosto
 
@@ -130,4 +152,7 @@
 	\input{content/introducao.tex}
 	\input{content/desenvolvimento.tex}
 	\input{content/conclusao.tex}
+
+	\newpage
+	\printbibliography[heading=none]
 \end{document}
