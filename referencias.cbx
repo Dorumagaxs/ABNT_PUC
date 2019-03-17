@@ -1,0 +1,42 @@
+\ProvidesFile{referencias.cbx}[2019/03/17 v1.0 biblatex citation style]
+
+\DeclareNameFormat{normalformat}{\MakeUppercase\namepartfamily}
+\DeclareNameFormat{inlineformat}{\namepartfamily}
+\DeclareNameFormat{footnoteformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}}
+
+\DeclareFieldFormat{mytitleformat}{\bfseries\printfield[default]{title}}
+\DeclareFieldFormat{mysubtitleformat}{: {\printfield[default]{subtitle}}}
+\DeclareFieldFormat{mytranslatorformat}{Tradução de {\printfield[default]{translator}}}
+\DeclareFieldFormat{myeditionformat}{{\printfield[default]{edition}}. ed.}
+\DeclareFieldFormat{mystateformat}{ ({\printfield[default]{state}})}
+
+\DeclareCiteCommand{\cite}[\mkbibparens]
+{} % pre
+{\printnames[normalformat]{author}, \printfield{year}} % loop
+{} % sep
+{, {\printfield{postnote}}} % post
+
+\DeclareCiteCommand{\textcite}
+{}
+{\printnames[inlineformat]{author} ({\printfield{year}})}
+{}
+{}
+
+\DeclareCiteCommand{\footcite}
+{}
+{\printnames[inlineformat]{author}}
+{}
+{\footnote{
+\printnames[footnoteformat]{author}%
+\newunit\newblock
+\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}%
+\newunit\newblock
+\printfield[mytranslatorformat]{translator}
+\newunit\newblock
+\printnames[myeditionformat]{edition}
+\newunit\newblock
+\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+\finentry
+}}
+
+\endinput

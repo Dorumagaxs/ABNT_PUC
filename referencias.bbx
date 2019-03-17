@@ -1,12 +1,5 @@
 \ProvidesFile{referencias.bbx}[2019/02/26 v1.0 biblatex bibliography style]
 
-% \list
-% {}
-% {}
-% % {\setlength{\leftmargin}{\bibhang}%
-% % \setlength{\itemindent}{-\leftmargin}%
-% % \setlength{\itemsep}{\bibitemsep}%
-% % \setlength{\parsep}{\bibparsep}
 \defbibenvironment{bibliography}
 	{\list{}{\setlength{\itemindent}{-.5em}}}
 	{\endlist}
@@ -26,7 +19,7 @@
 \DeclareDatamodelEntryfields[book]{name,title,subtitle,translator,city,state,publisher,year,edition}
 
 \DeclareBibliographyDriver{book}{
-	\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} }
+	\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}}
 	\printnames[mynameformat]{author}%
 	\newunit\newblock
 	\DeclareFieldFormat{mytitleformat}{\bfseries\printfield[default]{title}}

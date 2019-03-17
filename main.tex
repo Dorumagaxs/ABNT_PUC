@@ -1,8 +1,15 @@
 \documentclass[12pt]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[left=3cm,top=3cm,right=2cm,bottom=2cm,twoside]{geometry}
+\usepackage[
+	left=3cm,
+	top=3cm,
+	right=2cm,
+	bottom=2cm,
+	twoside
+]{geometry}
 \usepackage{helvet}
+\usepackage[hang]{footmisc}
 \usepackage{setspace}
 \usepackage{tocloft}
 \usepackage{titlesec}
@@ -10,13 +17,16 @@
 \usepackage[
 	backend=biber,
 	bibstyle=referencias,
+	citestyle=referencias,
 	maxnames=3,
 	minnames=1
 ]{biblatex}
+\usepackage{hyperref}
+
+\usepackage{lipsum}
 
 \addbibresource{referencias.bib}
 
-\usepackage{blindtext}
 
 \input{variables.tex}
 
@@ -114,14 +124,14 @@
 \renewcommand{\cftsubsubsecfont}{\itshape}
 
 % Definindo Capítulo
-\newcommand{\capitulo}[1]{
+\newcommand{\chapter}[1]{
 	\newpage
 	\ifodd \value{page}
 	\else
 		\hfill
 		\newpage
 	\fi
-	\section{\MakeUppercase{#1}}
+	\section{\texorpdfstring{\MakeUppercase{#1}}{#1}}
 	\indent
 }
 \titleformat{\subsection}{\LARGE\bfseries}{\thesubsection}{.5em}{}
@@ -133,6 +143,13 @@
 \fancyhead[ORH]{\thepage}
 \fancyhead[ELH]{\thepage}
 \renewcommand{\headrule}{}
+\renewcommand{\footnoterule}{%
+  \vspace{.3cm}
+  \kern -3pt
+  \hrule width \textwidth
+  \kern 2pt
+}
+\setlength\footnotemargin{.3cm}
 
 \begin{document}
 	\pagestyle{empty}

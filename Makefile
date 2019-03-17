@@ -10,4 +10,4 @@ view: build
 	chrome main.pdf
 
 clean:
-	rm main.aux main.bbl main.blg main.log main.toc main.bcf main.run.xml main.pdf
+	rm main.aux main.bbl main.blg main.log main.toc main.bcf main.run.xml main.pdf main.out
