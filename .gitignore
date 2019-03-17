@@ -1,12 +1,12 @@
 bin/
 template
-main..bbl
-	main..blg
-	main.aux
-	main.bbl
-	main.bcf
-	main.blg
-	main.log
-	main.pdf
-	main.run.xml
-	main.toc
+main.aux
+main.bbl
+main.blg
+main.log
+main.toc
+main.bcf
+main.run.xml
+main.pdf
+main.bbl
+main.blg
