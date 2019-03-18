@@ -9,16 +9,17 @@
 \DeclareFieldFormat{mytranslatorformat}{Tradução de {\printfield[default]{translator}}}
 \DeclareFieldFormat{myeditionformat}{{\printfield[default]{edition}}. ed.}
 \DeclareFieldFormat{mystateformat}{ ({\printfield[default]{state}})}
+\DeclareFieldFormat{mypostnoteformat}{, {\thefield{postnote}}}
 
 \DeclareCiteCommand{\cite}[\mkbibparens]
 {} % pre
-{\printnames[normalformat]{author}, \printfield{year}} % loop
+{\printnames[normalformat]{author}, \thefield{year}} % loop
 {} % sep
-{, {\printfield{postnote}}} % post
+{{\printfield[mypostnoteformat]{postnote}}} % post
 
 \DeclareCiteCommand{\textcite}
 {}
-{\printnames[inlineformat]{author} ({\printfield{year}})}
+{\printnames[inlineformat]{author} ({\thefield{year}})}
 {}
 {}
 

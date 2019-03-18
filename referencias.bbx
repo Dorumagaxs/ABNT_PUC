@@ -27,10 +27,13 @@
 \DeclareDatamodelFields[type=field,datatype=literal]{number}
 \DeclareDatamodelFields[type=field,datatype=literal]{pages}
 \DeclareDatamodelFields[type=field,datatype=literal]{mes}
+\DeclareDatamodelFields[type=field,datatype=literal]{dados}
+\DeclareDatamodelFields[type=field,datatype=literal]{jurisdicao}
 
-\DeclareDatamodelEntryfields[book]{name,title,subtitle,translator,city,state,publisher,year,edition}
-\DeclareDatamodelEntryfields[article]{name,title,subtitle,periodico,city,state,volume,number,pages,mes,year}
-\DeclareDatamodelEntryfields[site]{name,title,subtitle,year,url,access}
+\DeclareDatamodelEntryfields[book]{author,title,subtitle,translator,city,state,publisher,year,edition}
+\DeclareDatamodelEntryfields[article]{author,title,subtitle,periodico,city,state,volume,number,pages,mes,year}
+\DeclareDatamodelEntryfields[site]{author,title,subtitle,year,url,access}
+\DeclareDatamodelEntryfields[codigo]{author,title,dados,edition,city,state,publisher,year,jurisdicao}
 
 \DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
 \DeclareFieldFormat{mytitleformat}{\bfseries\thefield[default]{title}}
@@ -38,6 +41,14 @@
 \DeclareFieldFormat{mytranslatorformat}{Tradução de {\thefield[default]{translator}}}
 \DeclareFieldFormat{myeditionformat}{{\thefield[default]{edition}}. ed.}
 \DeclareFieldFormat{mystateformat}{ ({\thefield[default]{state}})}
+\DeclareFieldFormat{myperiodicoformat}{{\bfseries\thefield{periodico}}, }
+\DeclareFieldFormat{myvolumeformat}{v. {\thefield{volume}}, }
+\DeclareFieldFormat{mynumberformat}{n. {\thefield{number}}, }
+\DeclareFieldFormat{mypagesformat}{p. {\thefield{pages}}, }
+\DeclareFieldFormat{mymesformat}{{\thefield{mes}}. }
+\DeclareFieldFormat{myurlformat}{Disponível em: $<$\thefield{url}$>$}
+\DeclareFieldFormat{myaccessformat}{Acesso em: \thefield{access}}
+\DeclareFieldFormat{myjurisdicaoformat}{(\thefield{jurisdicao})}
 
 \DeclareBibliographyDriver{book}{
 	\unspace
@@ -53,12 +64,6 @@
 	\finentry
 }
 
-\DeclareFieldFormat{myperiodicoformat}{{\bfseries\thefield{periodico}}, }
-\DeclareFieldFormat{myvolumeformat}{v. {\thefield{volume}}, }
-\DeclareFieldFormat{mynumberformat}{n. {\thefield{number}}, }
-\DeclareFieldFormat{mypagesformat}{p. {\thefield{pages}}, }
-\DeclareFieldFormat{mymesformat}{{\thefield{mes}}. }
-
 \DeclareBibliographyDriver{article}{
 	\unspace
 	\printnames[mynameformat]{author}
@@ -66,10 +71,8 @@
 	\printfield[default]{title}\printfield[mysubtitleformat]{subtitle}%
 	\newunit\newblock
 	\printfield[myperiodicoformat]{periodico}\printfield[mycityformat]{city}\printfield[mystateformat]{state}, \printfield[myvolumeformat]{volume}\printfield[mynumberformat]{number}\printfield[mypagesformat]{pages}\printfield[mymesformat]{mes}\printfield[myyearformat]{year}
+	\finentry
 }
-
-\DeclareFieldFormat{myurlformat}{Disponível em: $<$\thefield{url}$>$}
-\DeclareFieldFormat{myaccessformat}{Acesso em: \thefield{access}}
 
 \DeclareBibliographyDriver{site}{
 	\unspace
@@ -82,6 +85,23 @@
 	\printfield[myurlformat]{url}
 	\newunit\newblock
 	\printfield[myaccessformat]{access}
+	\finentry
+}
+
+\DeclareNameFormat{codigonameformat}{{\MakeUppercase\namepartfamily}}
+\DeclareBibliographyDriver{codigo}{
+	\unspace
+	\printnames[codigonameformat]{author}
+	\newunit\newblock
+	\printfield[mytitleformat]{title}
+	\newunit\newblock
+	\printfield{dados}
+	\newunit\newblock
+	\printfield[myeditionformat]{edition}
+	\newunit\newblock
+	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+	\newunit\newblock
+	\printfield[myjurisdicaoformat]{jurisdicao}
 	\finentry
 }
 
