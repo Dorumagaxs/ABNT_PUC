@@ -1,9 +1,9 @@
 \ProvidesFile{referencias.cbx}[2019/03/17 v1.0 biblatex citation style]
 
-\DeclareNameFormat{normalformat}{\MakeUppercase\namepartfamily}
-\DeclareNameFormat{inlineformat}{\namepartfamily}
-\DeclareNameFormat{footnoteformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}}
+\DeclareNameFormat{normalformat}{\MakeUppercase\namepartfamily\ifthenelse{\value{listcount}=\value{liststop}}{}{ e }\ifthenelse{\value{labelname}>3}{ et al}{}}
+\DeclareNameFormat{inlineformat}{\namepartfamily\ifthenelse{\value{listcount}=\value{liststop}}{}{ e }\ifthenelse{\value{labelname}>3}{ e outros}{}}
 
+\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
 \DeclareFieldFormat{mytitleformat}{\bfseries\printfield[default]{title}}
 \DeclareFieldFormat{mysubtitleformat}{: {\printfield[default]{subtitle}}}
 \DeclareFieldFormat{mytranslatorformat}{Tradução de {\printfield[default]{translator}}}
@@ -26,17 +26,6 @@
 {}
 {\printnames[inlineformat]{author}}
 {}
-{\footnote{
-\printnames[footnoteformat]{author}%
-\newunit\newblock
-\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}%
-\newunit\newblock
-\printfield[mytranslatorformat]{translator}
-\newunit\newblock
-\printnames[myeditionformat]{edition}
-\newunit\newblock
-\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
-\finentry
-}}
+{\footnote{\usedriver{}{\thefield{entrytype}}}}
 
 \endinput

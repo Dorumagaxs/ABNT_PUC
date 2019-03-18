@@ -1,11 +1,16 @@
 \ProvidesFile{referencias.bbx}[2019/02/26 v1.0 biblatex bibliography style]
 
 \defbibenvironment{bibliography}
-	{\list{}{\setlength{\itemindent}{-.5em}}}
-	{\endlist}
-	{\item}
+{\list{}{
+	\setlength{\leftmargin}{\bibhang}%
+	\setlength{\itemindent}{-\leftmargin}%
+	\setlength{\itemsep}{\bibitemsep}%
+	\setlength{\parsep}{\bibparsep}
+}}
+{\endlist}
+{\item}
 
-\InitializeBibliographyStyle{
+\defbibheading{titulo}{
 	\begin{center}
 		\bfseries\uppercase{Referências}
 	\end{center}
@@ -15,25 +20,47 @@
 \DeclareDatamodelFields[type=field,datatype=literal]{city}
 \DeclareDatamodelFields[type=field,datatype=literal]{state}
 \DeclareDatamodelFields[type=field,datatype=literal]{translator}
+\DeclareDatamodelFields[type=field,datatype=literal]{url}
+\DeclareDatamodelFields[type=field,datatype=literal]{access}
 
 \DeclareDatamodelEntryfields[book]{name,title,subtitle,translator,city,state,publisher,year,edition}
+\DeclareDatamodelEntryfields[site]{name,title,subtitle,year,url,access}
+
+\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
+\DeclareFieldFormat{mytitleformat}{\bfseries\thefield[default]{title}}
+\DeclareFieldFormat{mysubtitleformat}{: {\thefield[default]{subtitle}}}
+\DeclareFieldFormat{mytranslatorformat}{Tradução de {\thefield[default]{translator}}}
+\DeclareFieldFormat{myeditionformat}{{\thefield[default]{edition}}. ed.}
+\DeclareFieldFormat{mystateformat}{ ({\thefield[default]{state}})}
 
 \DeclareBibliographyDriver{book}{
-	\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}}
+	\unspace
 	\printnames[mynameformat]{author}%
 	\newunit\newblock
-	\DeclareFieldFormat{mytitleformat}{\bfseries\printfield[default]{title}}
-	\DeclareFieldFormat{mysubtitleformat}{: {\printfield[default]{subtitle}}}
 	\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}%
 	\newunit\newblock
-	\DeclareFieldFormat{mytranslatorformat}{Tradução de {\printfield[default]{translator}}}
 	\printfield[mytranslatorformat]{translator}
 	\newunit\newblock
-	\DeclareFieldFormat{myeditionformat}{{\printfield[default]{edition}}. ed.}
 	\printnames[myeditionformat]{edition}
 	\newunit\newblock
-	\DeclareFieldFormat{mystateformat}{ ({\printfield[default]{state}})}
 	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+	\finentry
+}
+
+\DeclareFieldFormat{myurlformat}{Disponível em: $<$\thefield{url}$>$}
+\DeclareFieldFormat{myaccessformat}{Acesso em: \thefield{access}}
+
+\DeclareBibliographyDriver{site}{
+	\unspace
+	\printnames[mynameformat]{author}
+	\newunit\newblock
+	\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}
+	\newunit\newblock
+	\printfield[default]{year}
+	\newunit\newblock
+	\printfield[myurlformat]{url}
+	\newunit\newblock
+	\printfield[myaccessformat]{access}
 	\finentry
 }
 
