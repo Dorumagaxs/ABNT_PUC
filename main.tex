@@ -120,8 +120,10 @@
 }
 \renewcommand{\cftbeforetoctitleskip}{0em}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
+\setlength{\cftsubsecindent}{0em}
 \renewcommand{\cftsubsecfont}{\bfseries}
-\renewcommand{\cftsubsubsecfont}{\itshape}
+\setlength{\cftsubsubsecindent}{0em}
+\renewcommand{\cftsubsubsecfont}{\bfseries\itshape}
 
 % Definindo Capítulo
 \newcommand{\chapter}[1]{
@@ -134,8 +136,8 @@
 	\section{\texorpdfstring{\MakeUppercase{#1}}{#1}}
 	\indent
 }
-\titleformat{\subsection}{\LARGE\bfseries}{\thesubsection}{.5em}{}
-\titleformat{\subsubsection}{\Large\itshape}{\thesubsubsection}{.5em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{.5em}{}
+\titleformat{\subsubsection}{\bfseries\itshape}{\thesubsubsection}{.5em}{}
 
 % Definindo numeração
 \fancyhead{}
