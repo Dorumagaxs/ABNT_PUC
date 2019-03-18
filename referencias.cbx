@@ -10,21 +10,22 @@
 \DeclareFieldFormat{myeditionformat}{{\printfield[default]{edition}}. ed.}
 \DeclareFieldFormat{mystateformat}{ ({\printfield[default]{state}})}
 \DeclareFieldFormat{mypostnoteformat}{, {\thefield{postnote}}}
+\DeclareFieldFormat{myjurisdicaoformat}{\MakeUppercase{\thefield{jurisdicao}}}
 
 \DeclareCiteCommand{\cite}[\mkbibparens]
-{} % pre
+{\printfield[myjurisdicaoformat]{jurisdicao}} % pre
 {\printnames[normalformat]{author}, \thefield{year}} % loop
 {} % sep
 {{\printfield[mypostnoteformat]{postnote}}} % post
 
 \DeclareCiteCommand{\textcite}
-{}
+{\printfield[myjurisdicaoformat]{jurisdicao}}
 {\printnames[inlineformat]{author} ({\thefield{year}})}
 {}
 {}
 
 \DeclareCiteCommand{\footcite}
-{}
+{\printfield[myjurisdicaoformat]{jurisdicao}}
 {\printnames[inlineformat]{author}}
 {}
 {\footnote{\usedriver{}{\thefield{entrytype}}}}

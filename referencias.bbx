@@ -26,14 +26,19 @@
 \DeclareDatamodelFields[type=field,datatype=literal]{volume}
 \DeclareDatamodelFields[type=field,datatype=literal]{number}
 \DeclareDatamodelFields[type=field,datatype=literal]{pages}
+\DeclareDatamodelFields[type=field,datatype=literal]{dia}
 \DeclareDatamodelFields[type=field,datatype=literal]{mes}
 \DeclareDatamodelFields[type=field,datatype=literal]{dados}
 \DeclareDatamodelFields[type=field,datatype=literal]{jurisdicao}
+\DeclareDatamodelFields[type=field,datatype=literal]{ementa}
+\DeclareDatamodelFields[type=field,datatype=literal]{publicacao}
+\DeclareDatamodelFields[type=field,datatype=literal]{data}
 
 \DeclareDatamodelEntryfields[book]{author,title,subtitle,translator,city,state,publisher,year,edition}
 \DeclareDatamodelEntryfields[article]{author,title,subtitle,periodico,city,state,volume,number,pages,mes,year}
 \DeclareDatamodelEntryfields[site]{author,title,subtitle,year,url,access}
 \DeclareDatamodelEntryfields[codigo]{author,title,dados,edition,city,state,publisher,year,jurisdicao}
+\DeclareDatamodelEntryfields[lei]{author,title,ementa,city,state,publicacao,dia,mes,year}
 
 \DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
 \DeclareFieldFormat{mytitleformat}{\bfseries\thefield[default]{title}}
@@ -48,7 +53,7 @@
 \DeclareFieldFormat{mymesformat}{{\thefield{mes}}. }
 \DeclareFieldFormat{myurlformat}{Disponível em: $<$\thefield{url}$>$}
 \DeclareFieldFormat{myaccessformat}{Acesso em: \thefield{access}}
-\DeclareFieldFormat{myjurisdicaoformat}{(\thefield{jurisdicao})}
+\DeclareFieldFormat{myjurisdicaoformat}{\MakeUppercase{\thefield{jurisdicao}}}
 
 \DeclareBibliographyDriver{book}{
 	\unspace
@@ -88,10 +93,9 @@
 	\finentry
 }
 
-\DeclareNameFormat{codigonameformat}{{\MakeUppercase\namepartfamily}}
 \DeclareBibliographyDriver{codigo}{
 	\unspace
-	\printnames[codigonameformat]{author}
+	\printfield[myjurisdicaoformat]{jurisdicao}
 	\newunit\newblock
 	\printfield[mytitleformat]{title}
 	\newunit\newblock
@@ -100,8 +104,19 @@
 	\printfield[myeditionformat]{edition}
 	\newunit\newblock
 	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
-	\newunit\newblock
+	\finentry
+}
+
+\DeclareBibliographyDriver{lei}{
+	\unspace
 	\printfield[myjurisdicaoformat]{jurisdicao}
+	\newunit\newblock
+	\printfield[default]{title}
+	\newunit\newblock
+	\printfield{ementa}
+	\printfield[mypublicacaoformat]{publicacao}, \printfield[default]{city}\printfield[mystateformat]{state}, \printfield{dia} \printfield{mes}
+	\newunit\newblock
+	\printfield{year}
 	\finentry
 }
 
