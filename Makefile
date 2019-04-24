@@ -1,13 +1,13 @@
 all: pdf
 
 build:
-	pdflatex main
-	biber main
-	pdflatex main
-	pdflatex main
+	pdflatex -output-directory=bin/ main
+	biber --output-directory=bin/ --input-directory=bin/ main
+	pdflatex -output-directory=bin/ main
+	pdflatex -output-directory=bin/ main
 
 view: build
-	chrome main.pdf
+	chrome bin/main.pdf
 
 clean:
 	rm main.aux main.bbl main.blg main.log main.toc main.bcf main.run.xml main.pdf main.out
