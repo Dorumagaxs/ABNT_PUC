@@ -1,5 +1,3 @@
-all: pdf
-
 build:
 	if [ ! -d bin/ ]; then mkdir bin/; fi
 	pdflatex -output-directory=bin/ main
@@ -7,8 +5,8 @@ build:
 	pdflatex -output-directory=bin/ main
 	pdflatex -output-directory=bin/ main
 
-view: build
-	ff bin/main.pdf
+view:
+	zathura bin/main.pdf &
 
 clean:
 	#rm main.aux main.bbl main.blg main.log main.toc main.bcf main.run.xml main.pdf main.out
