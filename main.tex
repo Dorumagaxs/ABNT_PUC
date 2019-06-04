@@ -134,9 +134,11 @@
 % Definindo Capítulo
 \newcommand{\chapter}[1]{
 	\newpage
+	\pagestyle{fancy}
 	\ifodd \value{page}
 	\else
-		\hfill
+		\thispagestyle{empty}%
+		\phantom{pagina em branco}%
 		\newpage
 	\fi
 	\section{\texorpdfstring{\MakeUppercase{#1}}{#1}}
