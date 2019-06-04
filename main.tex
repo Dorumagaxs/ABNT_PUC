@@ -141,7 +141,6 @@
 		\phantom{pagina em branco}%
 		\newpage
 	\fi
-	\pagestyle{fancy}
 	\section{\texorpdfstring{\MakeUppercase{#1}}{#1}}
 	\indent
 }
@@ -185,6 +184,12 @@
 	\input{content/conclusao.tex}
 
 	\newpage
+	\ifodd \value{page}
+	\else
+		\thispagestyle{empty}%
+		\phantom{pagina em branco}%
+		\newpage
+	\fi
 	\nocite{*}
 	\printbibliography[heading=titulo]
 \end{document}
