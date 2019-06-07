@@ -32,6 +32,8 @@
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{1,25cm}
 
+\newcommand{\enquote}[1]{``#1"}
+
 \input{variaveis.tex}
 
 \newcommand{\skippage}{
@@ -117,6 +119,24 @@
 	\skippage
 }
 
+% Definindo lista de tabelas
+\AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{empty}}}
+\renewcommand{\listtablename}{
+	\begin{center}
+		\textbf{LISTA DE TABELAS}
+	\end{center}
+}
+\renewcommand{\cfttabpresnum}{Tabela }
+\renewcommand{\cfttabaftersnum}{ -}
+\renewcommand{\cfttabnumwidth}{2cm}
+\renewcommand{\cftbeforelottitleskip}{0em}
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+\setlength{\cftsubsecindent}{0em}
+\renewcommand{\cftsubsecfont}{\bfseries}
+\setlength{\cftsubsubsecindent}{0em}
+\renewcommand{\cftsubsubsecfont}{\bfseries\itshape}
+\renewcommand{\tablename}{Tabela}
+
 % Definindo Sumário
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
 \renewcommand{\contentsname}{
@@ -176,15 +196,16 @@
 	\resumo{resumo}{\input{content/resumos/portugues}}
 	\resumo{abstract}{\input{content/resumos/ingles}}
 
+	\listoftables
+	\newpage\phantom{a}\newpage
 	\tableofcontents
-	\newpage
 
 	\input{content/introducao.tex}
 	\input{content/desenvolvimento.tex}
 	\input{content/conclusao.tex}
 
 	\newpage
-	\ifodd \value{page}
+	\ifodd\value{page}
 	\else
 		\thispagestyle{empty}%
 		\phantom{pagina em branco}%
