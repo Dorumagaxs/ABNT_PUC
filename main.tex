@@ -16,6 +16,7 @@
 \usepackage{tocloft}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
+\usepackage[brazilian]{babel}
 \usepackage[
 	backend=biber,
 	bibstyle=referencias,
@@ -120,12 +121,12 @@
 }
 
 % Definindo lista de tabelas
-\AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{empty}}}
-\renewcommand{\listtablename}{
+\addto\captionsbrazilian{\addtocontents{lot}{\protect\thispagestyle{empty}}}
+\addto\captionsbrazilian{\renewcommand{\listtablename}{
 	\begin{center}
 		\textbf{LISTA DE TABELAS}
 	\end{center}
-}
+}}
 \renewcommand{\cfttabpresnum}{Tabela }
 \renewcommand{\cfttabaftersnum}{ -}
 \renewcommand{\cfttabnumwidth}{2cm}
@@ -138,12 +139,12 @@
 \renewcommand{\tablename}{Tabela}
 
 % Definindo Sumário
-\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
-\renewcommand{\contentsname}{
+\addto\captionsbrazilian{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+\addto\captionsbrazilian{\renewcommand{\contentsname}{
 	\begin{center}
 		\textbf{SUMÁRIO}
 	\end{center}
-}
+}}
 \renewcommand{\cftbeforetoctitleskip}{0em}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
 \setlength{\cftsubsecindent}{0em}
