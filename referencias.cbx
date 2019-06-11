@@ -10,6 +10,7 @@
 \DeclareFieldFormat{myeditionformat}{{\printfield[default]{edition}}. ed.}
 \DeclareFieldFormat{mystateformat}{ ({\printfield[default]{state}})}
 \DeclareFieldFormat{mypostnoteformat}{, {\thefield{postnote}}}
+\DeclareFieldFormat{myprenoteformat}{\MakeUppercase{\thefield{prenote}}}
 \DeclareFieldFormat{myjurisdicaoformat}{\MakeUppercase{\thefield{jurisdicao}}}
 
 \DeclareCiteCommand{\cite}[\mkbibparens]
@@ -23,6 +24,12 @@
 {\printnames[inlineformat]{author} ({\thefield{year}})}
 {}
 {}
+
+\DeclareCiteCommand{\indirectcite}[\mkbibparens]
+{\printfield[myprenoteformat]{prenote} apud }
+{\printnames[normalformat]{author}, {\thefield{year}}}
+{}
+{{\printfield[mypostnoteformat]{postnote}}}
 
 \DeclareCiteCommand{\footcite}
 {\printfield[myjurisdicaoformat]{jurisdicao}}
