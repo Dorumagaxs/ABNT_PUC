@@ -17,134 +17,244 @@
 	\vspace{2.5ex}
 }
 
-\DeclareDatamodelFields[type=field,datatype=literal]{city}
-\DeclareDatamodelFields[type=field,datatype=literal]{state}
-\DeclareDatamodelFields[type=field,datatype=literal]{translator}
-\DeclareDatamodelFields[type=field,datatype=literal]{url}
-\DeclareDatamodelFields[type=field,datatype=literal]{access}
-\DeclareDatamodelFields[type=field,datatype=literal]{periodico}
-\DeclareDatamodelFields[type=field,datatype=literal]{volume}
-\DeclareDatamodelFields[type=field,datatype=literal]{number}
-\DeclareDatamodelFields[type=field,datatype=literal]{pages}
-\DeclareDatamodelFields[type=field,datatype=literal]{dia}
-\DeclareDatamodelFields[type=field,datatype=literal]{mes}
-\DeclareDatamodelFields[type=field,datatype=literal]{dados}
-\DeclareDatamodelFields[type=field,datatype=literal]{jurisdicao}
-\DeclareDatamodelFields[type=field,datatype=literal]{ementa}
-\DeclareDatamodelFields[type=field,datatype=literal]{publicacao}
+\DeclareDatamodelFields[type=field,datatype=literal]{autor}
+\DeclareDatamodelFields[type=field,datatype=literal]{autorblog}
+\DeclareDatamodelFields[type=field,datatype=literal]{titulo}
+\DeclareDatamodelFields[type=field,datatype=literal]{tituloblog}
+\DeclareDatamodelFields[type=field,datatype=literal]{subtitulo}
+\DeclareDatamodelFields[type=field,datatype=literal]{cidade}
 \DeclareDatamodelFields[type=field,datatype=literal]{data}
-\DeclareDatamodelFields[type=field,datatype=literal]{pages}
+\DeclareDatamodelFields[type=field,datatype=literal]{ano}
+\DeclareDatamodelFields[type=field,datatype=literal]{duracao}
+\DeclareDatamodelFields[type=field,datatype=literal]{distribuidor}
+\DeclareDatamodelFields[type=field,datatype=literal]{editora}
+\DeclareDatamodelFields[type=field,datatype=literal]{edicao}
+\DeclareDatamodelFields[type=field,datatype=literal]{url}
+\DeclareDatamodelFields[type=field,datatype=literal]{acesso}
+\DeclareDatamodelFields[type=field,datatype=literal]{ebook}
 
-\DeclareDatamodelEntryfields[book]{author,title,subtitle,translator,city,state,publisher,year,edition}
-\DeclareDatamodelEntryfields[inbook]{author,title,subtitle,bookauthor,booktitle,booksubtitle,city,state,publisher,year,edition,chapter,pages}
-\DeclareDatamodelEntryfields[article]{author,title,subtitle,periodico,city,state,volume,number,pages,mes,year}
-\DeclareDatamodelEntryfields[site]{author,title,subtitle,year,url,access}
-\DeclareDatamodelEntryfields[codigo]{author,title,dados,edition,city,state,publisher,year,jurisdicao}
-\DeclareDatamodelEntryfields[lei]{author,title,ementa,city,state,publicacao,dia,mes,year}
-
-\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
-\DeclareNameFormat{mybooknameformat}{\textit{In:} {\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
-\DeclareFieldFormat{mytitleformat}{\bfseries\thefield[default]{title}}
-\DeclareFieldFormat{mybooktitleformat}{\bfseries\thefield{booktitle}}
-\DeclareFieldFormat{mysubtitleformat}{: {\thefield[default]{subtitle}}}
-\DeclareFieldFormat{mybooksubtitleformat}{: {\thefield{booksubtitle}}}
-\DeclareFieldFormat{mytranslatorformat}{Tradução de {\thefield[default]{translator}}}
-\DeclareFieldFormat{myeditionformat}{{\thefield[default]{edition}}}
-\DeclareFieldFormat{mystateformat}{ ({\thefield[default]{state}})}
-\DeclareFieldFormat{myperiodicoformat}{{\bfseries\thefield{periodico}}, }
-\DeclareFieldFormat{myvolumeformat}{v. {\thefield{volume}}, }
-\DeclareFieldFormat{mynumberformat}{n. {\thefield{number}}, }
-\DeclareFieldFormat{mypagesformat}{p. {\thefield{pages}}, }
-\DeclareFieldFormat{mymesformat}{{\thefield{mes}}. }
-\DeclareFieldFormat{myurlformat}{Disponível em: $<$\thefield{url}$>$}
-\DeclareFieldFormat{myaccessformat}{Acesso em: \thefield{access}}
-\DeclareFieldFormat{myjurisdicaoformat}{\MakeUppercase{\thefield{jurisdicao}}}
-\DeclareFieldFormat{mychapterformat}{cap. {\thefield{chapter}}}
-\DeclareFieldFormat{mypagesformat}{p. {\thefield{pages}}}
-
-\DeclareBibliographyDriver{book}{
+% LIVRO --------------------------------------------------------------------------------------------------------------------
+\DeclareDatamodelEntryfields[livro]{autor,titulo,subtitulo,edicao,cidade,editora,ano,ebook}
+\DeclareFieldFormat{livro-autor}{\thefield{autor}}
+\DeclareFieldFormat{livro-titulo}{\textbf{\thefield{titulo}}}
+\DeclareFieldFormat{livro-subtitulo}{: \thefield{subtitulo}}
+\DeclareFieldFormat{livro-edicao}{\thefield{edicao}}
+\DeclareFieldFormat{livro-cidade}{\thefield{cidade}: }
+\DeclareFieldFormat{livro-editora}{\thefield{editora}, }
+\DeclareFieldFormat{livro-ano}{\thefield{ano}}
+\DeclareFieldFormat{livro-ebook}{\textit{\thefield{ebook}}}
+\DeclareBibliographyDriver{livro}{
 	\unspace
-	\printnames[mynameformat]{author}%
+	\printfield[livro-autor]{autor}
 	\newunit\newblock
-	\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}%
+	\printfield[livro-titulo]{titulo}
 	\newunit\newblock
-	\printfield[mytranslatorformat]{translator}
+	\printfield[livro-edicao]{edicao}
 	\newunit\newblock
-	\printfield[default]{edition}
+	\printfield[livro-cidade]{cidade}\printfield[livro-editora]{editora}\printfield[livro-ano]{ano}
 	\newunit\newblock
-	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+	\printfield[livro-ebook]{ebook}
 	\finentry
 }
+%---------------------------------------------------------------------------------------------------------------------------
 
-\DeclareBibliographyDriver{inbook}{
+% BLOG --------------------------------------------------------------------------------------------------------------------- 
+\DeclareDatamodelEntryfields[blog]{autor,titulo,autorblog,tituloblog,cidade,ano,url,acesso}
+\DeclareFieldFormat{blog-autor}{\thefield{autor}}
+\DeclareFieldFormat{blog-titulo}{\thefield{titulo}}
+\DeclareFieldFormat{blog-autorblog}{\textit{In}: \thefield{autorblog}}
+\DeclareFieldFormat{blog-tituloblog}{\textbf{\thefield{tituloblog}}}
+\DeclareFieldFormat{blog-cidade}{\thefield{cidade}, }
+\DeclareFieldFormat{blog-ano}{\thefield{ano}}
+\DeclareFieldFormat{blog-url}{Disponível em: \thefield{url}}
+\DeclareFieldFormat{blog-acesso}{Acesso em: \thefield{acesso}}
+\DeclareBibliographyDriver{blog}{
 	\unspace
-	\printnames[mynameformat]{author}
+	\printfield[blog-autor]{autor}
 	\newunit\newblock
-	\printfield[default]{title}\printfield[mysubtitleformat]{subtitle}
+	\printfield[blog-titulo]{titulo}
 	\newunit\newblock
-	\printnames[mybooknameformat]{bookauthor}
+	\printfield[blog-autorblog]{autorblog}
 	\newunit\newblock
-	\printfield[mybooktitleformat]{booktitle}\printfield[mybooksubtitleformat]{booksubtitle}
+	\printfield[blog-tituloblog]{tituloblog}
 	\newunit\newblock
-	\printfield[default]{edition}
+	\printfield[blog-cidade]{cidade}\printfield[blog-ano]{ano}
 	\newunit\newblock
-	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+	\printfield[blog-url]{url}
 	\newunit\newblock
-	\printfield[mychapterformat]{chapter}, \printfield[mypagesformat]{pages}
+	\printfield[blog-acesso]{acesso}
 	\finentry
 }
+%---------------------------------------------------------------------------------------------------------------------------
 
-\DeclareBibliographyDriver{article}{
+% YOUTUBE ------------------------------------------------------------------------------------------------------------------
+\DeclareDatamodelEntryfields[youtube]{autor,titulo,cidade,data,duracao,distribuidor,url,acesso}
+\DeclareFieldFormat{youtube-titulo}{\MakeUppercase{\thefield{titulo}}}
+\DeclareFieldFormat{youtube-cidade}{\thefield{cidade}: }
+\DeclareFieldFormat{youtube-distribuidor}{\thefield{distribuidor}, }
+\DeclareFieldFormat{youtube-data}{\thefield{data}}
+\DeclareFieldFormat{youtube-url}{Disponível em: \thefield{url}}
+\DeclareFieldFormat{youtube-acesso}{Acesso em: \thefield{acesso}}
+\DeclareBibliographyDriver{youtube}{
 	\unspace
-	\printnames[mynameformat]{author}
+	\printfield[youtube-titulo]{titulo}
 	\newunit\newblock
-	\printfield[default]{title}\printfield[mysubtitleformat]{subtitle}%
+	\printfield[youtube-cidade]{cidade}\printfield[youtube-distribuidor]{distribuidor}\printfield[youtube-data]{data}
 	\newunit\newblock
-	\printfield[myperiodicoformat]{periodico}\printfield[mycityformat]{city}\printfield[mystateformat]{state}, \printfield[myvolumeformat]{volume}\printfield[mynumberformat]{number}\printfield[mypagesformat]{pages}\printfield[mymesformat]{mes}\printfield[myyearformat]{year}
+	\printfield[youtube-url]{url}
+	\newunit\newblock
+	\printfield[youtube-acesso]{acesso}
 	\finentry
 }
+%---------------------------------------------------------------------------------------------------------------------------
 
-\DeclareBibliographyDriver{site}{
-	\unspace
-	\printnames[mynameformat]{author}
-	\newunit\newblock
-	\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}
-	\newunit\newblock
-	\printfield[default]{year}
-	\newunit\newblock
-	\printfield[myurlformat]{url}
-	\newunit\newblock
-	\printfield[myaccessformat]{access}
-	\finentry
-}
+%\DeclareDatamodelFields[type=field,datatype=literal]{city}
+%\DeclareDatamodelFields[type=field,datatype=literal]{state}
+%\DeclareDatamodelFields[type=field,datatype=literal]{translator}
+%\DeclareDatamodelFields[type=field,datatype=literal]{url}
+%\DeclareDatamodelFields[type=field,datatype=literal]{access}
+%\DeclareDatamodelFields[type=field,datatype=literal]{periodico}
+%\DeclareDatamodelFields[type=field,datatype=literal]{volume}
+%\DeclareDatamodelFields[type=field,datatype=literal]{number}
+%\DeclareDatamodelFields[type=field,datatype=literal]{pages}
+%\DeclareDatamodelFields[type=field,datatype=literal]{dia}
+%\DeclareDatamodelFields[type=field,datatype=literal]{mes}
+%\DeclareDatamodelFields[type=field,datatype=literal]{dados}
+%\DeclareDatamodelFields[type=field,datatype=literal]{jurisdicao}
+%\DeclareDatamodelFields[type=field,datatype=literal]{ementa}
+%\DeclareDatamodelFields[type=field,datatype=literal]{publicacao}
+%\DeclareDatamodelFields[type=field,datatype=literal]{data}
+%\DeclareDatamodelFields[type=field,datatype=literal]{pages}
+%\DeclareDatamodelFields[type=field,datatype=literal]{data}
+%\DeclareDatamodelFields[type=field,datatype=literal]{duracao}
+%
+%\DeclareDatamodelEntryfields[book]{author,title,subtitle,translator,city,state,publisher,year,edition}
+%\DeclareDatamodelEntryfields[inbook]{author,title,subtitle,bookauthor,booktitle,booksubtitle,city,state,publisher,year,edition,chapter,pages}
+%\DeclareDatamodelEntryfields[article]{author,title,subtitle,periodico,city,state,volume,number,pages,mes,year}
+%\DeclareDatamodelEntryfields[site]{author,title,subtitle,year,url,access}
+%\DeclareDatamodelEntryfields[youtube]{title,autor,city,data,publisher,url,access,duracao}
+%\DeclareDatamodelEntryfields[codigo]{author,title,dados,edition,city,state,publisher,year,jurisdicao}
+%\DeclareDatamodelEntryfields[lei]{author,title,ementa,city,state,publicacao,dia,mes,year}
+%
+%\DeclareNameFormat{mynameformat}{{\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
+%\DeclareNameFormat{mybooknameformat}{\textit{In:} {\MakeUppercase\namepartfamily}, {\namepartgiven} \ifthenelse{\value{listcount}=\value{liststop}}{}{\addsemicolon\space}\ifthenelse{\value{labelname}>3}{et al}{}}
+%\DeclareFieldFormat{mytitleformat}{\bfseries\thefield[default]{title}}
+%\DeclareFieldFormat{mybooktitleformat}{\bfseries\thefield{booktitle}}
+%\DeclareFieldFormat{mysubtitleformat}{: {\thefield[default]{subtitle}}}
+%\DeclareFieldFormat{mybooksubtitleformat}{: {\thefield{booksubtitle}}}
+%\DeclareFieldFormat{mytranslatorformat}{Tradução de {\thefield[default]{translator}}}
+%\DeclareFieldFormat{myeditionformat}{{\thefield[default]{edition}}}
+%\DeclareFieldFormat{mystateformat}{ ({\thefield[default]{state}})}
+%\DeclareFieldFormat{myperiodicoformat}{{\bfseries\thefield{periodico}}, }
+%\DeclareFieldFormat{myvolumeformat}{v. {\thefield{volume}}, }
+%\DeclareFieldFormat{mynumberformat}{n. {\thefield{number}}, }
+%\DeclareFieldFormat{mypagesformat}{p. {\thefield{pages}}, }
+%\DeclareFieldFormat{mymesformat}{{\thefield{mes}}. }
+%\DeclareFieldFormat{myurlformat}{Disponível em: \thefield{url}}
+%\DeclareFieldFormat{myaccessformat}{Acesso em: \thefield{access}}
+%\DeclareFieldFormat{myjurisdicaoformat}{\MakeUppercase{\thefield{jurisdicao}}}
+%\DeclareFieldFormat{mychapterformat}{cap. {\thefield{chapter}}}
+%\DeclareFieldFormat{mypagesformat}{p. {\thefield{pages}}}
+%\DeclareFieldFormat{myautorformat}{\MakeUppercase{\thefield{autor}}}
+%
+%\DeclareBibliographyDriver{book}{
+%	\unspace
+%	\printnames[mynameformat]{author}%
+%	\newunit\newblock
+%	\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}%
+%	\newunit\newblock
+%	\printfield[mytranslatorformat]{translator}
+%	\newunit\newblock
+%	\printfield[default]{edition}
+%	\newunit\newblock
+%	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+%	\finentry
+%}
+%
+%\DeclareBibliographyDriver{inbook}{
+%	\unspace
+%	\printnames[mynameformat]{author}
+%	\newunit\newblock
+%	\printfield[default]{title}\printfield[mysubtitleformat]{subtitle}
+%	\newunit\newblock
+%	\printnames[mybooknameformat]{bookauthor}
+%	\newunit\newblock
+%	\printfield[mybooktitleformat]{booktitle}\printfield[mybooksubtitleformat]{booksubtitle}
+%	\newunit\newblock
+%	\printfield[default]{edition}
+%	\newunit\newblock
+%	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+%	\newunit\newblock
+%	\printfield[mychapterformat]{chapter}, \printfield[mypagesformat]{pages}
+%	\finentry
+%}
+%
+%\DeclareBibliographyDriver{article}{
+%	\unspace
+%	\printnames[mynameformat]{author}
+%	\newunit\newblock
+%	\printfield[default]{title}\printfield[mysubtitleformat]{subtitle}%
+%	\newunit\newblock
+%	\printfield[myperiodicoformat]{periodico}\printfield[mycityformat]{city}\printfield[mystateformat]{state}, \printfield[myvolumeformat]{volume}\printfield[mynumberformat]{number}\printfield[mypagesformat]{pages}\printfield[mymesformat]{mes}\printfield[myyearformat]{year}
+%	\finentry
+%}
+%
+%\DeclareBibliographyDriver{site}{
+%	\unspace
+%	\printnames[mynameformat]{author}
+%	\newunit\newblock
+%	\printfield[mytitleformat]{title}\printfield[mysubtitleformat]{subtitle}
+%	\newunit\newblock
+%	\printfield[default]{year}
+%	\newunit\newblock
+%	\printfield[myurlformat]{url}
+%	\newunit\newblock
+%	\printfield[myaccessformat]{access}
+%	\finentry
+%}
+%
+%\DeclareBibliographyDriver{youtube}{
+%	\unspace
+%	\printfield[myautorformat]{title}
+%	\newunit\newblock
+%	\thefield{city}: \printfield[myautorformat]{autor}, \thefield{data}
+%	\newunit\newblock
+%	\thefield{duracao}
+%	\newunit\newblock
+%	Publicado por: \thefield{publisher}
+%	\newunit\newblock
+%	Disponível em: \thefield{url}
+%	\newunit\newblock
+%	Acesso em: \thefield{access}
+%}
+%
+%\DeclareBibliographyDriver{codigo}{
+%	\unspace
+%	\printfield[myjurisdicaoformat]{jurisdicao}
+%	\newunit\newblock
+%	\printfield[mytitleformat]{title}
+%	\newunit\newblock
+%	\printfield{dados}
+%	\newunit\newblock
+%	\printfield[myeditionformat]{edition}
+%	\newunit\newblock
+%	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
+%	\finentry
+%}
+%
+%\DeclareBibliographyDriver{lei}{
+%	\unspace
+%	\printfield[myjurisdicaoformat]{jurisdicao}
+%	\newunit\newblock
+%	\printfield[default]{title}
+%	\newunit\newblock
+%	\printfield{ementa}
+%	\printfield[mypublicacaoformat]{publicacao}, \printfield[default]{city}\printfield[mystateformat]{state}, \printfield{dia} \printfield{mes}
+%	\newunit\newblock
+%	\printfield{year}
+%	\finentry
+%}
 
-\DeclareBibliographyDriver{codigo}{
-	\unspace
-	\printfield[myjurisdicaoformat]{jurisdicao}
-	\newunit\newblock
-	\printfield[mytitleformat]{title}
-	\newunit\newblock
-	\printfield{dados}
-	\newunit\newblock
-	\printfield[myeditionformat]{edition}
-	\newunit\newblock
-	\printfield[default]{city}\printfield[mystateformat]{state}: \printlist[default]{publisher}, \printfield[default]{year}
-	\finentry
-}
-
-\DeclareBibliographyDriver{lei}{
-	\unspace
-	\printfield[myjurisdicaoformat]{jurisdicao}
-	\newunit\newblock
-	\printfield[default]{title}
-	\newunit\newblock
-	\printfield{ementa}
-	\printfield[mypublicacaoformat]{publicacao}, \printfield[default]{city}\printfield[mystateformat]{state}, \printfield{dia} \printfield{mes}
-	\newunit\newblock
-	\printfield{year}
-	\finentry
-}
-
-\DeclareSortingScheme{nty}{\sort}%
+\DeclareSortingScheme{nty}{\sort}
 
 \endinput
